@@ -11,10 +11,11 @@
 #include <termios.h>
 #include <sys/ioctl.h>
 #include <sys/stat.h>
-
+#include <dirent.h>
 int file_dir_test(void)
 {
 	int ret = -1;
+	DIR* dir;
 	ret = access("/home/linux-ls/workspace/study/UNIX/test/test.txt",F_OK);
 	if(ret == 0)
 	{
@@ -51,5 +52,10 @@ int file_dir_test(void)
 	rename("/home/linux-ls/workspace/study/UNIX/test/test1","/home/linux-ls/workspace/study/UNIX/test/test2");
 	rename("/home/linux-ls/workspace/study/UNIX/test/test.txt","/home/linux-ls/workspace/study/UNIX/test/test.dat");
 
+	dir = opendir("/home/linux-ls/workspace/study/UNIX/test/test1");
+	if(dir == NULL)
+	{
+		printf("open dir failed!\r\n");
+	}
 	return 0;
 }

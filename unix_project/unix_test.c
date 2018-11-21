@@ -14,8 +14,9 @@
 int main(void)
 {
 
-	file_io_test();
-	file_dir_test();
+	//file_io_test();
+	//file_dir_test();
+	std_io_test();
 	return 0;
 
 }

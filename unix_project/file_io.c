@@ -46,7 +46,9 @@ int file_io_test(void)
 	{
 		printf("write file failed!\r\n");
 		return 0;
-	}	close(fd);
+	}
+	close(fd);
 	return 0;
+
 
 }

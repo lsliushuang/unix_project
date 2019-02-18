@@ -21,9 +21,9 @@ int main(int argc , char *argv[])
 //	file_dir_test();
 //	std_io_test();
 //	data_file_test();
-	//create_process_test();
+	create_process_test();
 	//get_env_test();
-	test_pthread();
+	//test_pthread();
 	while(1);
 	return 0;
 

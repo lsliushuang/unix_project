@@ -14,7 +14,10 @@
 
 int main(int argc , char *argv[])
 {
-	gettime_tcp_server();
+	//gettime_tcp_server();
+	//judge_host_little_big();
+	//echo_tcp_server();
+	echo_tcp_client("192.168.0.107");
 	return 0;
 
 }

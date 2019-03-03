@@ -111,6 +111,37 @@ void str_cli(FILE *fp, int sockfd)
 
 }
 
+void str_cli_select(FILE *fp, int sockfd)
+{
+	int maxfd;
+	fd_set rset;
+	char sendline[1024],recvline[1024];
+	FD_ZERO(&rset);
+
+	while(1)
+	{
+		FD_SET(fileno(fp),&rset);
+		FD_SET(sockfd,&rset);
+		maxfd = max(fileno(fp),sockfd) + 1;
+		select(maxfd,&rset,NULL,NULL,NULL);
+
+		if(FD_ISSET(sockfd,&rset))
+		{
+			if(read(sockfd,recvline,1024) == 0)
+				printf("sock resad err\r\n");
+			fputs(recvline,stdout);
+		}
+
+		if(FD_ISSET(fileno(fp),&rset))
+		{
+			if(fgets(sendline,1024,fp)== NULL)
+			return;
+			write(sockfd,sendline,strlen(sendline));
+		}
+	}
+
+}
+
 void echo_tcp_client(char* ip_str)
 {
 	int sockfd;

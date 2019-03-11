@@ -71,7 +71,7 @@ void echo_tcp_server(void)
 	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
 	servaddr.sin_port = htons(SERV_PORT);
 
-	//绑定套接字和地址
+	//XXX 绑定套接字和地址
 	if(bind(listenfd,(struct sockaddr*)&servaddr,sizeof(servaddr)) < 0)
 	{
 		printf("bind err\r\n");
@@ -85,6 +85,7 @@ void echo_tcp_server(void)
 	while(1)
 	{
 		clilen = sizeof(cliaddr);
+		//FIXME 测试一下FIXME
 		connfd = accept(listenfd,(struct sockaddr*)&cliaddr,&clilen); //接受客户端的连接
 		if((childpid == fork()) == 0)  //创建子进程来处理新的tcp连接
 		{
@@ -93,7 +94,7 @@ void echo_tcp_server(void)
 		}
 		close(connfd);//父进程中关闭新连接的套接字，因为新连接的套接字在子进程中执行
 	}
-
+//
 }
 
 void str_cli(FILE *fp, int sockfd)
@@ -101,6 +102,7 @@ void str_cli(FILE *fp, int sockfd)
 	char sendline[1024],recvline[1024];
 	while(fgets(sendline,1024,fp) != NULL)
 	{
+		//TODO 还需要写另外一个版本
 		write(sockfd,sendline,strlen(sendline));
 		if(read(sockfd,recvline,1024) == 0)
 		{
@@ -122,7 +124,7 @@ void str_cli_select(FILE *fp, int sockfd)
 	{
 		FD_SET(fileno(fp),&rset);
 		FD_SET(sockfd,&rset);
-		maxfd = max(fileno(fp),sockfd) + 1;
+//		/maxfd = max(fileno(fp),sockfd) + 1;
 		select(maxfd,&rset,NULL,NULL,NULL);
 
 		if(FD_ISSET(sockfd,&rset)) //测试sockfd是否在rset集合里面
@@ -131,7 +133,7 @@ void str_cli_select(FILE *fp, int sockfd)
 				printf("sock resad err\r\n");
 			fputs(recvline,stdout);
 		}
-
+		//todo test
 		if(FD_ISSET(fileno(fp),&rset))
 		{
 			if(fgets(sendline,1024,fp)== NULL)
@@ -160,5 +162,6 @@ void echo_tcp_client(char* ip_str)
 		printf("connect err\r\n");
 	}
 	str_cli(stdin,sockfd);
+	switch
 	exit(0);
 }

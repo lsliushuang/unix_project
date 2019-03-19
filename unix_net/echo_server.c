@@ -85,7 +85,6 @@ void echo_tcp_server(void)
 	while(1)
 	{
 		clilen = sizeof(cliaddr);
-		//FIXME 测试一下FIXME
 		connfd = accept(listenfd,(struct sockaddr*)&cliaddr,&clilen); //接受客户端的连接
 		if((childpid == fork()) == 0)  //创建子进程来处理新的tcp连接
 		{
@@ -133,7 +132,6 @@ void str_cli_select(FILE *fp, int sockfd)
 				printf("sock resad err\r\n");
 			fputs(recvline,stdout);
 		}
-		//todo test
 		if(FD_ISSET(fileno(fp),&rset))
 		{
 			if(fgets(sendline,1024,fp)== NULL)
@@ -162,6 +160,5 @@ void echo_tcp_client(char* ip_str)
 		printf("connect err\r\n");
 	}
 	str_cli(stdin,sockfd);
-	switch
 	exit(0);
 }

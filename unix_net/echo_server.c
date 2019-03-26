@@ -123,11 +123,11 @@ void str_cli_select(FILE *fp, int sockfd)
 	{
 		FD_SET(fileno(fp),&rset);
 		FD_SET(sockfd,&rset);
-//		/maxfd = max(fileno(fp),sockfd) + 1;
+
 		select(maxfd,&rset,NULL,NULL,NULL);
 
-		if(FD_ISSET(sockfd,&rset)) //测试sockfd是否在rset集合里面
-		{
+		if(FD_ISSET(sockfd,&rset))
+
 			if(read(sockfd,recvline,1024) == 0)
 				printf("sock resad err\r\n");
 			fputs(recvline,stdout);
@@ -138,9 +138,9 @@ void str_cli_select(FILE *fp, int sockfd)
 			return;
 			write(sockfd,sendline,strlen(sendline));
 		}
-	}
-
 }
+
+
 
 void echo_tcp_client(char* ip_str)
 {

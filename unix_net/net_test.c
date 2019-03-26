@@ -18,7 +18,8 @@ int main(int argc , char *argv[])
 	//judge_host_little_big();
 	//echo_tcp_server();
 	//echo_tcp_client("192.168.10.176");
-	echo_udp_server();
+	//echo_udp_server();
+	echo_udp_client("192.168.30.93");
 	return 0;
 
 }

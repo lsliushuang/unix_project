@@ -27,11 +27,23 @@ void dg_echo(int sockfd, struct sockaddr* pcliaddr, socklen_t len)
 {
 	int n;
 	socklen_t length;
+	struct timeval tv;
+	tv.tv_sec = 5;
+	tv.tv_usec = 0;
 	char msg[1024];
 	while (1)
 	{
 		length = len;
+		setsockopt(sockfd,SOL_SOCKET,SO_RCVTIMEO,&tv,sizeof(tv));  //设置接收超时时间
 		n = recvfrom(sockfd, msg, 1024, 0, pcliaddr, &length);
+		if(n < 0)
+		{
+			if(errno == EWOULDBLOCK)  //接收超时
+			{
+				printf("recvfrom timeout!\r\n");
+			}
+		}
+
 		sendto(sockfd, msg, n, 0, pcliaddr, length);
 		printf("msdg = %s \r\n", msg);
 	}

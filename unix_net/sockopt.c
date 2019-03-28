@@ -50,4 +50,12 @@ void test_fcntl(void)
 		printf("fcntl er : F_SETFL\r\n");
 	}
 
+	/******通过主机名获取ip*************/
+	//gethostbyname()
+	//gethostbyaddr()
+	//getaddrinfo()
+
 }
+
+
+

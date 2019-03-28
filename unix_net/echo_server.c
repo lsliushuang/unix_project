@@ -155,10 +155,11 @@ void echo_tcp_client(char* ip_str)
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_port = SERV_PORT;
 	inet_pton(AF_INET,ip_str,&servaddr.sin_addr);
-	if(connect(sockfd,(struct sockaddr*)&servaddr,sizeof(servaddr)) < 0)
-	{
-		printf("connect err\r\n");
-	}
+	connect_timeo(sockfd,(struct sockaddr*)&servaddr,sizeof(servaddr),5);
+//	if(connect(sockfd,(struct sockaddr*)&servaddr,sizeof(servaddr)) < 0)
+//	{
+//		printf("connect err\r\n");
+//	}
 	str_cli(stdin,sockfd);
 	exit(0);
 }
